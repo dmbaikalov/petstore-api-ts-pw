@@ -1,0 +1,32 @@
+{
+  "name": "petstore-pw",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmbaikalov/petstore-pw.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/dmbaikalov/petstore-pw/issues"
+  },
+  "homepage": "https://github.com/dmbaikalov/petstore-pw#readme",
+  "devDependencies": {
+    "@faker-js/faker": "^9.6.0",
+    "@playwright/test": "^1.51.1",
+    "@types/node": "^22.13.17",
+    "@typescript-eslint/eslint-plugin": "^8.29.0",
+    "@typescript-eslint/parser": "^8.29.0",
+    "dotenv": "^16.4.7",
+    "eslint": "^9.23.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-prettier": "^5.2.5",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.2"
+  }
+}
