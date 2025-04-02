@@ -1,31 +1,22 @@
-// playwright.config.ts
-import { chromium, defineConfig, devices } from "@playwright/test";
+import { defineConfig } from "@playwright/test";
 import dotenv from "dotenv";
-import path from "path";
 
 dotenv.config();
 
 export default defineConfig({
-  testDir: "./tests",
+  testDir: "./src/tests",
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  reporter: "html",
+  reporter: "line",
 
   use: {
-    baseURL: "https://petstore.swagger.io/v2",
+    baseURL: process.env.BASE_URL || "https://petstore.swagger.io/v2/",
+
     extraHTTPHeaders: {
       Accept: "application/json",
-      // 'api_key': process.env.API_KEY || 'special-key'
+      "Content-Type": "application/json",
     },
-
-    trace: "on-first-retry",
   },
-
-  projects: [
-    {
-      name: "api",
-    },
-  ],
 });

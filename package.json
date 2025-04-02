@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "tests": "npx playwright test"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dmbaikalov/petstore-pw.git"
@@ -17,7 +19,6 @@
   },
   "homepage": "https://github.com/dmbaikalov/petstore-pw#readme",
   "devDependencies": {
-    "@faker-js/faker": "^9.6.0",
     "@playwright/test": "^1.51.1",
     "@types/node": "^22.13.17",
     "@typescript-eslint/eslint-plugin": "^8.29.0",
