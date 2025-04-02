@@ -1,4 +1,4 @@
-import { ApiClient } from "@src/utils/api-client";
+import { ApiClient } from "@src/utils/api.client";
 import { Pet } from "@src/models/pet.model";
 
 export class PetApi {

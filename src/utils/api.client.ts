@@ -1,5 +1,4 @@
 import { APIRequestContext, APIResponse } from "@playwright/test";
-import { expect } from "@playwright/test";
 
 export class ApiClient {
   constructor(private request: APIRequestContext) {}

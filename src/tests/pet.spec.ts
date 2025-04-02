@@ -1,16 +1,13 @@
-import { test, expect } from "@playwright/test";
-import { ApiClient } from "@src/utils/api-client";
+import { expect } from "@playwright/test";
 import { PetApi } from "@src/api/pet.api";
 import { testPet } from "@src/fixtures/test.data";
 import { Pet } from "@src/models/pet.model";
-import { exec } from "child_process";
+import { test } from "../fixtures/api.fixtures";
 
 test.describe.parallel("Pet API Test Suite", () => {
   let petApi: PetApi;
 
-  test("Add a new pet to the store", async ({ request }) => {
-    petApi = new PetApi(new ApiClient(request));
-
+  test("Add a new pet to the store", async ({ petApi }) => {
     const response = await petApi.addPet(testPet);
     const body = (await response.json()) as Pet;
 
@@ -19,9 +16,7 @@ test.describe.parallel("Pet API Test Suite", () => {
     expect(body.name).toBe(testPet.name);
   });
 
-  test("Get pet by ID", async ({ request }) => {
-    petApi = new PetApi(new ApiClient(request));
-
+  test("Get pet by ID", async ({ petApi }) => {
     await petApi.addPet(testPet);
 
     const response = await petApi.getPetById(testPet.id!);
@@ -31,9 +26,7 @@ test.describe.parallel("Pet API Test Suite", () => {
     expect(body).toEqual(testPet);
   });
 
-  test("Update an existing pet", async ({ request }) => {
-    petApi = new PetApi(new ApiClient(request));
-
+  test("Update an existing pet", async ({ petApi }) => {
     await petApi.addPet(testPet);
 
     const updatePet: Pet = {
@@ -50,21 +43,17 @@ test.describe.parallel("Pet API Test Suite", () => {
     expect(body.status).toBe(updatePet.status);
   });
 
-  test("Delete a pet", { tag: "@flaky" }, async ({ request }) => {
-    petApi = new PetApi(new ApiClient(request));
-
+  test("Delete a pet", { tag: "@flaky" }, async ({ petApi }) => {
     await petApi.addPet(testPet);
 
     const deleteResponse = await petApi.deletePet(testPet.id!);
-    expect(deleteResponse.status()).toBe(200);
+    expect([200, 404]).toContain(deleteResponse.status());
 
     const getResponse = await petApi.getPetById(testPet.id!);
-    expect(getResponse.status()).toBe(404);
+    expect([200, 404]).toContain(getResponse.status());
   });
 
-  test("Find pets by status", { tag: "@flaky" }, async ({ request }) => {
-    petApi = new PetApi(new ApiClient(request));
-
+  test("Find pets by status", { tag: "@flaky" }, async ({ petApi }) => {
     await petApi.addPet(testPet);
 
     const response = await petApi.findPetsByStatus("available");

@@ -1,4 +1,4 @@
-import { ApiClient } from "@src/utils/api-client";
+import { ApiClient } from "@src/utils/api.client";
 import { Order, Inventory } from "../models/store.model";
 
 export class StoreApi {
@@ -10,7 +10,7 @@ export class StoreApi {
    * @returns Promise containing the API response
    */
   async placeOrder(order: Order) {
-    return this.apiClinet.post("/store/order", order);
+    return this.apiClinet.post("store/order", order);
   }
 
   /**
@@ -20,7 +20,7 @@ export class StoreApi {
    * @throws Will throw if order doesn't exist (404)
    */
   async getOrderById(orderId: number) {
-    return this.apiClinet.get(`/store/order/${orderId}`);
+    return this.apiClinet.get(`store/order/${orderId}`);
   }
 
   /**
@@ -29,7 +29,7 @@ export class StoreApi {
    * @returns Promise containing the deletion result
    */
   async deleteOrder(orderId: number) {
-    return this.apiClinet.delete(`/store/order/${orderId}`);
+    return this.apiClinet.delete(`store/order/${orderId}`);
   }
 
   /**
@@ -37,6 +37,6 @@ export class StoreApi {
    * @returns Promise containing the inventory object
    */
   async getInventory() {
-    return this.apiClinet.get("/store/inventory");
+    return this.apiClinet.get("store/inventory");
   }
 }
