@@ -26,11 +26,6 @@ export const testOrder: Order = {
   complete: false,
 };
 
-/**
- * Helper function to generate order data
- * @param overrides - Partial order data to override defaults
- * @returns A complete Order object
- */
 export function createTestOrder(overrides: Partial<Order> = {}): Order {
   return {
     ...testOrder,
@@ -49,11 +44,6 @@ export const testUser: User = {
   userStatus: 1,
 };
 
-/**
- * Helper function to generate user data
- * @param overrides - Partial user data to override defaults
- * @returns A complete User object
- */
 export function createTestUser(overrides: Partial<User> = {}): User {
   const timestamp = Date.now();
   const randomString = Math.random().toString(36).substring(2, 6);
