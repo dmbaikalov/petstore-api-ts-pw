@@ -55,14 +55,33 @@ export const testUser: User = {
  * @returns A complete User object
  */
 export function createTestUser(overrides: Partial<User> = {}): User {
+  const timestamp = Date.now();
+  const randomString = Math.random().toString(36).substring(2, 6);
+
   return {
-    ...testUser,
+    id: timestamp % 100000,
+    username: `user-${timestamp}-${randomString}`,
+    firstName: "Test",
+    lastName: "User",
+    email: `test-${timestamp}@example.com`,
+    password: "test123",
+    phone: `555-${timestamp.toString().slice(-4)}`,
+    userStatus: 1,
     ...overrides,
   };
 }
 
-export const testUsersArray: User[] = [
-  createTestUser({ id: 1, username: "testuser1" }),
-  createTestUser({ id: 2, username: "testuser2" }),
-  createTestUser({ id: 3, username: "testuser3" }),
-];
+export function generateTestUser(prefix = "test"): User {
+  const timestamp = Date.now();
+  const randomString = Math.random().toString(36).substring(2, 6);
+
+  return {
+    username: `${prefix}-${timestamp}-${randomString}`,
+    firstName: "Test",
+    lastName: "User",
+    email: `test-${timestamp}@example.com`,
+    password: "test123",
+    phone: "555-" + timestamp.toString().slice(-4),
+    userStatus: 1,
+  };
+}

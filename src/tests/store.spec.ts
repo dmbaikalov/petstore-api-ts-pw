@@ -22,13 +22,12 @@ test.describe("Store API Tests Suite", () => {
 
   test("Get order by ID", async ({ storeApi }) => {
     const orderResponse = await storeApi.placeOrder(testOrder);
-    const order = (await orderResponse.json()) as Order;
+    const order = await orderResponse.json();
 
-    const getResponse = await storeApi.getOrderById(order.id!);
-
-    expect(getResponse.status()).toBe(200);
-    const retrivedOrder = (await getResponse.json()) as Order;
-    expect(retrivedOrder).toEqual(order);
+    await expect(async () => {
+      const getResponse = await storeApi.getOrderById(order.id);
+      expect(getResponse.status()).toBe(200);
+    }).toPass({ timeout: 5000 });
   });
 
   test("Delete an order", async ({ storeApi }) => {

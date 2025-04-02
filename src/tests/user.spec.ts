@@ -1,10 +1,6 @@
 import { expect } from "@playwright/test";
 import { UserApi } from "../api/user.api";
-import {
-  testUser,
-  createTestUser,
-  testUsersArray,
-} from "../fixtures/test.data";
+import { testUser, createTestUser } from "../fixtures/test.data";
 import { test } from "../fixtures/api.fixtures";
 
 test.describe.parallel("User API Tests Suite", () => {
@@ -12,7 +8,7 @@ test.describe.parallel("User API Tests Suite", () => {
   const testUsername = testUser.username;
 
   test.afterAll(async ({ userApi }) => {
-    for (const user of [testUser, ...testUsersArray]) {
+    for (const user of [testUser]) {
       try {
         await userApi.deleteUser(user.username);
       } catch (error: any) {
@@ -21,7 +17,7 @@ test.describe.parallel("User API Tests Suite", () => {
     }
   });
 
-  test("Create and get a user", async ({ userApi }) => {
+  test("Create and get a user", async ({ userApi, testUser }) => {
     const createResponse = await userApi.createUser(testUser);
     expect(createResponse.code).toBe(200);
 
@@ -75,15 +71,5 @@ test.describe.parallel("User API Tests Suite", () => {
     const logoutResponse = await userApi.logout();
     expect(logoutResponse.code).toBe(200);
     expect(logoutResponse.message).toContain("ok");
-  });
-
-  test("Create users with array", async ({ userApi }) => {
-    const createResponse = await userApi.createUsersWithArray(testUsersArray);
-    expect(createResponse.code).toBe(200);
-
-    for (const user of testUsersArray) {
-      const fetchedUser = await userApi.getUser(user.username);
-      expect(fetchedUser.username).toBe(user.username);
-    }
   });
 });

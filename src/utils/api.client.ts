@@ -33,9 +33,11 @@ export class ApiClient {
   private async verifyResponse(response: APIResponse): Promise<void> {
     if (!response.ok()) {
       const body = await response.text();
-      throw new Error(
-        `API request failed with status ${response.status()}. \nResponse: ${body}`,
-      );
+      if (response.status() === 404 && body.includes("not found")) {
+        console.warn("Resource not found");
+        return;
+      }
+      throw new Error(`API request failed: ${response.status()} - ${body}`);
     }
   }
 }

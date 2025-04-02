@@ -80,4 +80,10 @@ export class UserApi {
     const resposne = await this.apiClient.delete(`user/${username}`);
     return resposne.json();
   }
+
+  async deleteUsers(usernames: string[]): Promise<void> {
+    await Promise.all(
+      usernames.map((username) => this.deleteUser(username).catch(() => {})),
+    );
+  }
 }
