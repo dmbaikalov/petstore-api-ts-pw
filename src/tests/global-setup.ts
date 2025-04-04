@@ -9,8 +9,8 @@ export default async function globalSetup() {
   const isHealthy = await verifyApiHealth(apiRequest);
 
   if (!isHealthy) {
-    console.error("❌ API is not healthy - aborting test run");
-    process.exit(1); // This will stop the entire test run
+    console.error("API is not healthy - aborting test run");
+    process.exit(1); 
   }
 
   await apiRequest.dispose();
